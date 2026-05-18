@@ -1,0 +1,121 @@
+:root {
+  /* Row 1: Deep Teal */
+  --deep-teal-900: #044b59;
+  --deep-teal-800: #055f6b;
+  --deep-teal-700: #088395;
+  --deep-teal-600: #0a9cb0;
+  --deep-teal-500: #0bc5ea;
+  --deep-teal-400: #3ed5ef;
+  --deep-teal-300: #71e4f4;
+  --deep-teal-200: #a4f2f9;
+  --deep-teal-100: #d6fafd;
+  --deep-teal-50: #ebfdfef;
+
+  /* Row 2: Ocean Green */
+  --ocean-900: #1b5b5c;
+  --ocean-800: #227072;
+  --ocean-700: #2c9396;
+  --ocean-600: #36b5b9;
+  --ocean-500: #40d8dc;
+  --ocean-400: #66e0e3;
+  --ocean-300: #8ce8ea;
+  --ocean-200: #b3f0f1;
+  --ocean-100: #d9f7f8;
+  --ocean-50: #ecfbfb;
+
+  /* Row 3: Light Cyan */
+  --cyan-900: #7bbbc1;
+  --cyan-800: #8bcbd1;
+  --cyan-700: #9cdadd;
+  --cyan-600: #aae9ec;
+  --cyan-500: #b9f7f9;
+  --cyan-400: #c6f9fa;
+  --cyan-300: #d4fbfb;
+  --cyan-200: #e1fdfd;
+  --cyan-100: #effefe;
+  --cyan-50: #f7ffff;
+
+  /* Row 4: Slate Gray */
+  --slate-900: #1e292b;
+  --slate-800: #29383a;
+  --slate-700: #384c4f;
+  --slate-600: #496266;
+  --slate-500: #5a777d;
+  --slate-400: #789196;
+  --slate-300: #96aeb1;
+  --slate-200: #b6cacc;
+  --slate-100: #d7e6e8;
+  --slate-50: #ebf2f3;
+
+  /* Row 5: Sage */
+  --sage-900: #6a9c7c;
+  --sage-800: #78ab8a;
+  --sage-700: #88bc9a;
+  --sage-600: #99cdaa;
+  --sage-500: #a8dfbb;
+  --sage-400: #b9e6ca;
+  --sage-300: #caedd8;
+  --sage-200: #dbf4e7;
+  --sage-100: #edfbf5;
+  --sage-50: #f6fdfa;
+
+  /* Row 6: Mint */
+  --mint-900: #1b4b41;
+  --mint-800: #225f52;
+  --mint-700: #2f8573;
+  --mint-600: #3ba891;
+  --mint-500: #47ccb0;
+  --mint-400: #6cd6bf;
+  --mint-300: #91e1cf;
+  --mint-200: #b6ecdf;
+  --mint-100: #dbf6ef;
+  --mint-50: #edfbf7;
+
+  /* Row 7: Mustard Gold */
+  --mustard-900: #cca036;
+  --mustard-800: #d1a847;
+  --mustard-700: #d5af58;
+  --mustard-600: #dab769;
+  --mustard-500: #e0be7a;
+  --mustard-400: #e4c78f;
+  --mustard-300: #e9cfa4;
+  --mustard-200: #eed7b9;
+  --mustard-100: #f3dfce;
+  --mustard-50: #f8ece0;
+
+  /* Row 8: Sand */
+  --sand-900: #e4d3b6;
+  --sand-800: #e9d9c0;
+  --sand-700: #eedfcb;
+  --sand-600: #f2e5d6;
+  --sand-500: #f7ebe1;
+  --sand-400: #f9efe7;
+  --sand-300: #fbf3ec;
+  --sand-200: #fdf7f2;
+  --sand-100: #fefcf8;
+  --sand-50: #fffefb;
+
+  /* Row 9: Dark Brown */
+  --brown-900: #332720;
+  --brown-800: #403229;
+  --brown-700: #544337;
+  --brown-600: #6a5545;
+  --brown-500: #816854;
+  --brown-400: #998370;
+  --brown-300: #b19e8d;
+  --brown-200: #c9baab;
+  --brown-100: #e2d7ca;
+  --brown-50: #f0e9e4;
+
+  /* Row 10: Warm Gray */
+  --warm-gray-900: #faf7f2;
+  --warm-gray-800: #fbf9f4;
+  --warm-gray-700: #fcfbf6;
+  --warm-gray-600: #fdfdf9;
+  --warm-gray-500: #fefefc;
+  --warm-gray-400: #fefefd;
+  --warm-gray-300: #ffffff;
+  --warm-gray-200: #ffffff;
+  --warm-gray-100: #ffffff;
+  --warm-gray-50: #ffffff;
+}

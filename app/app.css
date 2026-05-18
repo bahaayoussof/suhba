@@ -1,0 +1,12 @@
+@import "tailwindcss";
+@import "./color-palette.css";
+
+@theme {
+  --font-sans: "Cairo", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+}
+
+html,
+body {
+  @apply bg-[var(--warm-gray-50)] text-[var(--slate-900)];
+}
