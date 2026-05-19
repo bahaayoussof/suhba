@@ -180,7 +180,8 @@ export default function NewSessionWizard() {
       skipGuardRef.current = false;
       return;
     }
-    if (currentStep < 2) return;
+    // Skip guard on confirmation screen — wizard is already complete
+    if (currentStep < 2 || currentStep === 6) return;
     for (let i = 0; i < currentStep - 1; i++) {
       if (!isStepValid(i)) {
         navigate(WIZARD_STEPS[i].path, { replace: true });

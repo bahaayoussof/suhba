@@ -1,9 +1,20 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
 import type { LoginFormInputs } from "../../types";
 
 export default function Login() {
   const navigate = useNavigate();
+
+  // Redirect already-authenticated users away from the login page
+  useEffect(() => {
+    const token =
+      localStorage.getItem("token") ?? sessionStorage.getItem("token");
+    if (token) {
+      navigate("/dashboard/sessions", { replace: true });
+    }
+  }, [navigate]);
+
   const {
     register,
     handleSubmit,

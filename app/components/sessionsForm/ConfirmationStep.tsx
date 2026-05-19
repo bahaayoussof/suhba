@@ -214,6 +214,7 @@ export default function ConfirmationStep() {
             <button
               onClick={() => {
                 resetWizard();
+                navigate("/dashboard/sessions/new");
               }}
               className="flex-1 flex items-center justify-center gap-1 p-2 bg-white text-[var(--deep-teal-900)] font-semibold rounded-xl border border-[var(--deep-teal-900)] hover:bg-slate-50 transition-colors cursor-pointer"
             >

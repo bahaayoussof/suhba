@@ -1,5 +1,5 @@
-import DatePicker from "./date";
-import TimePicker from "./time";
+import DatePicker from "../date";
+import TimePicker from "../time";
 
 export default function Step2() {
   return (

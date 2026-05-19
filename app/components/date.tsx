@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Calendar as CalendarIcon, ChevronRight, ChevronLeft } from "lucide-react";
-import { useAppStore } from "../../store/useAppStore";
-import { cn } from "../../lib/utils";
+import { useAppStore } from "../store/useAppStore";
+import { cn } from "../lib/utils";
 
 const MONTHS = [
   "January", "February", "March", "April", "May", "June",
