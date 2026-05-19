@@ -11,7 +11,7 @@ export default function MajlisCard({
   className,
 }: MajlisCardProps) {
   return (
-    <div className={cn("bg-white rounded-3xl overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-[var(--slate-100)] p-6 relative flex flex-col h-full group hover:shadow-md transition-shadow", className)}>
+    <div className={cn("bg-white rounded-3xl overflow-hidden shadow-[0_2px_10px_rgba(0,0,0,0.04)] border border-[var(--slate-100)] p-5 relative flex flex-col h-full group hover:shadow-md transition-shadow", className)}>
       {/* Background Pattern */}
       <div className="absolute inset-0 opacity-[0.03] pointer-events-none" style={{ backgroundImage: "radial-gradient(var(--deep-teal-900) 1.5px, transparent 1.5px)", backgroundSize: "24px 24px" }}></div>
 
@@ -47,10 +47,10 @@ export default function MajlisCard({
 
       {/* Bottom Actions */}
       <div className="flex items-center gap-3 relative z-10 mt-auto border-t border-[var(--slate-50)] pt-5">
-        <button className="flex-1 bg-[var(--deep-teal-900)] text-white font-bold py-3.5 rounded-[14px] shadow-sm hover:bg-[#033b47] transition-colors text-sm">
+        <button className="flex-1 bg-[var(--deep-teal-900)] text-white py-3 rounded-[14px] shadow-sm hover:bg-[#033b47] transition-colors text-sm">
           الانضمام الآن
         </button>
-        <button className="p-3.5 text-[var(--deep-teal-900)] hover:bg-[var(--deep-teal-50)] rounded-[14px] transition-colors">
+        <button className="p-3 text-[var(--deep-teal-900)] hover:bg-[var(--deep-teal-50)] rounded-[14px] transition-colors">
           <Share2 className="w-5 h-5" />
         </button>
       </div>
