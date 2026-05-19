@@ -1,10 +1,8 @@
 import { ChevronRight, ChevronLeft } from "lucide-react";
 import { cn } from "../lib/utils";
+import type { PaginationProps as BasePaginationProps } from "../../types";
 
-interface PaginationProps {
-  currentPage: number;
-  totalPages: number;
-  onPageChange: (page: number) => void;
+interface PaginationProps extends BasePaginationProps {
   className?: string;
 }
 

@@ -7,6 +7,7 @@ import {
   FileText,
   Check,
 } from "lucide-react";
+import { useNavigate } from "react-router";
 import { useAppStore } from "../../store/useAppStore";
 import { useWorldsQuery } from "../../hooks/useQueries";
 import { toArabicNums } from "~/lib/utils";
@@ -38,8 +39,8 @@ function SummaryCard({ title, onEdit, children }: SummaryCardProps) {
 }
 
 export default function Step5Summary() {
+  const navigate = useNavigate();
   const formData = useAppStore((state) => state.wizardData);
-  const setWizardStep = useAppStore((state) => state.setWizardStep);
   const { data: worlds } = useWorldsQuery();
   const [imageErrors, setImageErrors] = React.useState<Record<string, boolean>>(
     {},
@@ -71,7 +72,7 @@ export default function Step5Summary() {
   return (
     <div className="space-y-6">
       {/* Basic Info Card */}
-      <SummaryCard title="معلومات اساسية" onEdit={() => setWizardStep(1)}>
+      <SummaryCard title="معلومات اساسية" onEdit={() => navigate("/dashboard/sessions/new")}>
         <div className="space-y-6">
           {/* Title & Category Row */}
           <div className="flex justify-between items-start gap-4 max-w-[85%]">
@@ -127,7 +128,7 @@ export default function Step5Summary() {
       </SummaryCard>
 
       {/* Date & Time Card */}
-      <SummaryCard title="الوقت والتاريخ" onEdit={() => setWizardStep(2)}>
+      <SummaryCard title="الوقت والتاريخ" onEdit={() => navigate("/dashboard/sessions/new/step2")}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Date Info */}
           <div className="flex flex-col gap-2 text-right">
@@ -165,7 +166,7 @@ export default function Step5Summary() {
       </SummaryCard>
 
       {/* Media Card (Step 3 Summary) */}
-      <SummaryCard title="وسائط المجلس" onEdit={() => setWizardStep(3)}>
+      <SummaryCard title="وسائط المجلس" onEdit={() => navigate("/dashboard/sessions/new/step3")}>
         {formData.files.length === 0 ? (
           <p className="text-sm text-[var(--slate-400)] font-medium">
             لم يتم تحميل أي ملفات.
@@ -217,7 +218,7 @@ export default function Step5Summary() {
       {/* Settings Card (Step 4 Summary) */}
       <SummaryCard
         title="إعدادات وقواعد المجلس"
-        onEdit={() => setWizardStep(4)}
+        onEdit={() => navigate("/dashboard/sessions/new/step4")}
       >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Visitors Limit */}

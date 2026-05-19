@@ -1,10 +1,6 @@
 import { useNavigate } from "react-router";
 import { useForm } from "react-hook-form";
-
-type LoginFormInputs = {
-  username: string;
-  password: string;
-};
+import type { LoginFormInputs } from "../../types";
 
 export default function Login() {
   const navigate = useNavigate();

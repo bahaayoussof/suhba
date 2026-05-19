@@ -1,6 +1,5 @@
 import axios from "axios";
-import type { MajlisCardProps, WorldCardProps } from "../../types/types";
-import { mockSessions, mockWorlds } from "../../constants";
+import type { MajlisCardProps, WorldCardProps } from "../../types";
 
 const isServer = typeof window === "undefined";
 
@@ -21,11 +20,39 @@ export async function getWorlds(): Promise<WorldCardProps[]> {
 
 export async function getSessions(): Promise<MajlisCardProps[]> {
   try {
-    const res = await api.get<MajlisCardProps[]>("/spaces");
-    return res.data;
+    const res = await api.get<any[]>("/spaces");
+    return res.data.map((session) => {
+      let mappedStatus = "upcoming";
+      const status = session.status;
+      const scheduledAt = session.scheduledAt;
+
+      if (status === "current" || status === "upcoming" || status === "past") {
+        mappedStatus = status;
+      } else if (status === "ACTIVE") {
+        if (scheduledAt) {
+          const scheduledTime = new Date(scheduledAt).getTime();
+          const now = Date.now();
+          if (scheduledTime > now) {
+            mappedStatus = "upcoming";
+          } else {
+            mappedStatus = "current";
+          }
+        } else {
+          mappedStatus = "current";
+        }
+      } else if (status === "ENDED" || status === "INACTIVE") {
+        mappedStatus = "past";
+      }
+
+      return {
+        ...session,
+        status: mappedStatus,
+        totalPlaces: session.totalPlaces ?? session.maxUsers ?? 50,
+        currentAttendees: session.currentAttendees ?? 0,
+      };
+    });
   } catch (error) {
     console.warn("Failed to fetch real data from spaces.", error);
-    // return new Promise(resolve => setTimeout(() => resolve(mockSessions), 1000));
     return [];
   }
 }

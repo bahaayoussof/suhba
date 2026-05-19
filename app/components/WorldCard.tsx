@@ -1,5 +1,5 @@
 import { Globe2, Users as UsersIcon } from "lucide-react";
-import type { WorldCardProps } from "../../types/types";
+import type { WorldCardProps } from "../../types";
 
 export default function WorldCard({ name, description, memberCount, coverImage }: WorldCardProps) {
   return (

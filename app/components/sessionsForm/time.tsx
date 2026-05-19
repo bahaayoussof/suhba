@@ -2,13 +2,7 @@ import { useState, useEffect, useRef } from "react";
 import { Clock, ChevronDown } from "lucide-react";
 import { useAppStore } from "../../store/useAppStore";
 import { cn } from "../../lib/utils";
-
-interface CustomSelectProps {
-  value: string;
-  onChange: (val: string) => void;
-  options: string[];
-  dropdownHeightClass?: string;
-}
+import type { CustomSelectProps } from "../../../types";
 
 function CustomSelect({ value, onChange, options, dropdownHeightClass = "max-h-48" }: CustomSelectProps) {
   const [isOpen, setIsOpen] = useState(false);

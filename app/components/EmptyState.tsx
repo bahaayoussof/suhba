@@ -1,9 +1,8 @@
 import type { ReactNode } from "react";
 import { cn } from "../lib/utils";
+import type { EmptyStateProps as BaseEmptyStateProps } from "../../types";
 
-interface EmptyStateProps {
-  title?: string;
-  description?: string;
+interface EmptyStateProps extends BaseEmptyStateProps {
   actionButton?: ReactNode;
   className?: string;
 }

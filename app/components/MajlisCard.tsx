@@ -1,6 +1,6 @@
 import { User, Share2 } from "lucide-react";
 import { cn } from "../lib/utils";
-import type { MajlisCardProps } from "../../types/types";
+import type { MajlisCardProps } from "../../types";
 
 export default function MajlisCard({
   title,

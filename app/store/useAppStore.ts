@@ -1,43 +1,6 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
-
-interface UploadedFile {
-  id: string;
-  name: string;
-  size: string;
-  type: string;
-  progress?: number;
-  status: "uploading" | "completed" | "error";
-  url?: string;
-}
-
-interface WizardData {
-  title: string;
-  description: string;
-  date: string;
-  time: string;
-  rulesAccepted: boolean;
-  environmentId: number | null;
-  files: UploadedFile[];
-  visitorsLimit: number;
-  raiseHand: boolean;
-  muteOnEntry: boolean;
-  allowChat: boolean;
-  isPrivate: boolean;
-}
-
-interface AppState {
-  // Wizard State
-  wizardStep: number;
-  wizardData: WizardData;
-  setWizardStep: (step: number) => void;
-  updateWizardData: (field: keyof WizardData, value: any) => void;
-  resetWizard: () => void;
-
-  // Session Tab State
-  activeSessionTab: string;
-  setActiveSessionTab: (tab: string) => void;
-}
+import type { AppState, WizardData } from "../../types";
 
 const defaultWizardData: WizardData = {
   title: "",

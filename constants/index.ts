@@ -1,4 +1,4 @@
-import type { MajlisCardProps, WorldCardProps } from "../types/types";
+import type { MajlisCardProps, WorldCardProps } from "../types";
 
 export const mockSessions: MajlisCardProps[] = [
   {
