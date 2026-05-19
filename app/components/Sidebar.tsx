@@ -1,6 +1,6 @@
 import { NavLink, useNavigate } from "react-router";
 import { DoorOpen, Users, Box, LogOut } from "lucide-react";
-import { cn } from "./ui/utils";
+import { cn } from "../lib/utils";
 
 export default function Sidebar() {
   const navigate = useNavigate();

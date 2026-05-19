@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import MajlisCard from "../../../components/MajlisCard";
 import Pagination from "../../../components/Pagination";
 import EmptyState from "../../../components/EmptyState";
-import { cn } from "../../../components/ui/utils";
+import { cn } from "../../../lib/utils";
 import { useSessionsQuery } from "../../../hooks/useQueries";
 import { useAppStore } from "../../../store/useAppStore";
 

@@ -1,12 +1,29 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
+interface UploadedFile {
+  id: string;
+  name: string;
+  size: string;
+  type: string;
+  progress?: number;
+  status: "uploading" | "completed" | "error";
+  url?: string;
+}
+
 interface WizardData {
   title: string;
   description: string;
   date: string;
   time: string;
   rulesAccepted: boolean;
+  environmentId: number;
+  files: UploadedFile[];
+  visitorsLimit: number;
+  raiseHand: boolean;
+  muteOnEntry: boolean;
+  allowChat: boolean;
+  isPrivate: boolean;
 }
 
 interface AppState {
@@ -14,7 +31,7 @@ interface AppState {
   wizardStep: number;
   wizardData: WizardData;
   setWizardStep: (step: number) => void;
-  updateWizardData: (field: keyof WizardData, value: string | boolean) => void;
+  updateWizardData: (field: keyof WizardData, value: any) => void;
   resetWizard: () => void;
 
   // Session Tab State
@@ -28,6 +45,13 @@ const defaultWizardData: WizardData = {
   date: "",
   time: "",
   rulesAccepted: false,
+  environmentId: 1,
+  files: [],
+  visitorsLimit: 25,
+  raiseHand: true,
+  muteOnEntry: false,
+  allowChat: true,
+  isPrivate: false,
 };
 
 export const useAppStore = create<AppState>()(

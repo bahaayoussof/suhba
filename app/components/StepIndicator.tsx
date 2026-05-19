@@ -1,5 +1,5 @@
 import { Check } from "lucide-react";
-import { cn } from "./ui/utils";
+import { cn } from "../lib/utils";
 
 interface StepIndicatorProps {
   currentStep: number;
@@ -12,9 +12,9 @@ export default function StepIndicator({ currentStep, steps }: StepIndicatorProps
       <div className="flex items-center justify-between relative">
         {/* Connecting Line */}
         <div className="absolute left-0 right-0 top-1/2 -translate-y-1/2 h-1 bg-[var(--slate-200)] z-0 rounded-full" />
-        
+
         {/* Active Line Fill */}
-        <div 
+        <div
           className="absolute right-0 top-1/2 -translate-y-1/2 h-1 bg-[var(--mint-500)] z-0 rounded-full transition-all duration-500 ease-in-out"
           style={{ width: `${((currentStep - 1) / (steps.length - 1)) * 100}%` }}
         />

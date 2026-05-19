@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Globe2 } from "lucide-react";
 import Pagination from "../../components/Pagination";
-import { cn } from "../../components/ui/utils";
+import { cn } from "../../lib/utils";
 import type { WorldCardProps } from "../../../types/types";
 import { useWorldsQuery } from "../../hooks/useQueries";
 

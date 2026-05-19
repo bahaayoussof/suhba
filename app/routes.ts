@@ -8,4 +8,6 @@ export default [
     route("dashboard/sessions", "routes/dashboard/sessions/index.tsx"),
     route("dashboard/sessions/new", "routes/dashboard/sessions/new.tsx"),
   ]),
+  route("api/v1/environments", "routes/api/environments.ts"),
+  route("api/v1/spaces", "routes/api/spaces.ts"),
 ] satisfies RouteConfig;

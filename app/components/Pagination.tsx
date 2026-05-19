@@ -1,5 +1,5 @@
 import { ChevronRight, ChevronLeft } from "lucide-react";
-import { cn } from "./ui/utils";
+import { cn } from "../lib/utils";
 
 interface PaginationProps {
   currentPage: number;
@@ -22,24 +22,24 @@ export default function Pagination({
       }
     } else {
       pages.push(1);
-      
+
       if (currentPage > 3) {
         pages.push("...");
       }
-      
+
       const start = Math.max(2, currentPage - 1);
       const end = Math.min(totalPages - 1, currentPage + 1);
-      
+
       for (let i = start; i <= end; i++) {
         if (i !== 1 && i !== totalPages) {
           pages.push(i);
         }
       }
-      
+
       if (currentPage < totalPages - 2) {
         pages.push("...");
       }
-      
+
       pages.push(totalPages);
     }
     return pages;

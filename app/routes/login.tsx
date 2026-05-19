@@ -1,10 +1,20 @@
 import { useNavigate } from "react-router";
+import { useForm } from "react-hook-form";
+
+type LoginFormInputs = {
+  username: string;
+  password: string;
+};
 
 export default function Login() {
   const navigate = useNavigate();
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<LoginFormInputs>();
 
-  const handleLogin = (e: React.FormEvent) => {
-    e.preventDefault();
+  const onSubmit = (data: LoginFormInputs) => {
     // Store mock tokens
     localStorage.setItem("token", "mock_auth_token_xyz_123");
     sessionStorage.setItem("token", "mock_auth_token_xyz_123");
@@ -22,7 +32,7 @@ export default function Login() {
           مرحبا بك في صحبة
         </h2>
         
-        <form className="space-y-5 px-4 sm:px-10" onSubmit={handleLogin}>
+        <form className="space-y-5 px-4 sm:px-10" onSubmit={handleSubmit(onSubmit)}>
           <div>
             <label
               htmlFor="username"
@@ -32,13 +42,23 @@ export default function Login() {
             </label>
             <input
               id="username"
-              name="username"
               type="text"
-              required
-              className="block w-full border border-[#8eacac] rounded-[10px] bg-[#f4f6f6] focus:ring-[var(--deep-teal-900)] focus:border-[var(--deep-teal-900)] sm:text-sm py-2.5 px-4 outline-none transition-colors text-left"
+              className={`block w-full border rounded-[10px] bg-[#f4f6f6] focus:ring-[var(--deep-teal-900)] focus:border-[var(--deep-teal-900)] sm:text-sm py-2.5 px-4 outline-none transition-colors text-left ${
+                errors.username ? "border-red-500 focus:ring-red-500 focus:border-red-500" : "border-[#8eacac]"
+              }`}
               placeholder="e.g. Example@email.com"
               dir="ltr"
+              {...register("username", {
+                required: "البريد الإلكتروني مطلوب",
+                pattern: {
+                  value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                  message: "الرجاء إدخال بريد إلكتروني صحيح"
+                }
+              })}
             />
+            {errors.username && (
+              <p className="mt-1 text-xs text-red-500 text-right">{errors.username.message}</p>
+            )}
           </div>
 
           <div>
@@ -50,13 +70,23 @@ export default function Login() {
             </label>
             <input
               id="password"
-              name="password"
               type="password"
-              required
-              className="block w-full border border-[#8eacac] rounded-[10px] bg-[#f4f6f6] focus:ring-[var(--deep-teal-900)] focus:border-[var(--deep-teal-900)] sm:text-sm py-2.5 px-4 outline-none transition-colors text-left"
+              className={`block w-full border rounded-[10px] bg-[#f4f6f6] focus:ring-[var(--deep-teal-900)] focus:border-[var(--deep-teal-900)] sm:text-sm py-2.5 px-4 outline-none transition-colors text-left ${
+                errors.password ? "border-red-500 focus:ring-red-500 focus:border-red-500" : "border-[#8eacac]"
+              }`}
               placeholder="e.g. 1122ww"
               dir="ltr"
+              {...register("password", {
+                required: "كلمة المرور مطلوبة",
+                minLength: {
+                  value: 6,
+                  message: "كلمة المرور يجب أن تكون 6 أحرف على الأقل"
+                }
+              })}
             />
+            {errors.password && (
+              <p className="mt-1 text-xs text-red-500 text-right">{errors.password.message}</p>
+            )}
           </div>
 
           <div className="pt-2">
