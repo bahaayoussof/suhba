@@ -13,6 +13,7 @@ export default function Step3Media() {
   const updateFormData = useAppStore((state) => state.updateWizardData);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const [error, setError] = useState<string | null>(null);
+  const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});
 
   // Helper to format file sizes to match mockup (e.g. 120K size)
   const formatSizeAndType = (file: File) => {
@@ -78,6 +79,8 @@ export default function Step3Media() {
       const dotIndex = file.name.lastIndexOf(".");
       const cleanName =
         dotIndex !== -1 ? file.name.substring(0, dotIndex) : file.name;
+      const isImage = ["JPG", "PNG", "JPEG", "GIF", "WEBP"].includes(ext);
+      const fileUrl = isImage ? URL.createObjectURL(file) : undefined;
       return {
         id: fileId,
         name: cleanName,
@@ -85,6 +88,7 @@ export default function Step3Media() {
         type: ext,
         progress: 0,
         status: "uploading" as const,
+        url: fileUrl,
       };
     });
 
@@ -103,6 +107,14 @@ export default function Step3Media() {
   };
 
   const handleDelete = (id: string) => {
+    const fileToDelete = formData.files.find((f) => f.id === id);
+    if (fileToDelete?.url && fileToDelete.url.startsWith("blob:")) {
+      try {
+        URL.revokeObjectURL(fileToDelete.url);
+      } catch (e) {
+        console.warn("Failed to revoke object URL:", e);
+      }
+    }
     const updated = formData.files.filter((f) => f.id !== id);
     updateFormData("files", updated);
   };
@@ -171,18 +183,25 @@ export default function Step3Media() {
               <div
                 key={file.id}
                 className="bg-white border border-[var(--slate-100)] rounded-[12px] p-3 flex items-center justify-between shadow-[0_1px_3px_rgba(0,0,0,0.01)] transition-all hover:border-[var(--slate-200)]"
-                dir="ltr"
+                dir="rtl"
               >
                 {/* Left: Icon & Text Details */}
                 <div className="flex items-center gap-3 min-w-0">
-                  <div className="w-10 h-10 rounded-lg bg-[#f8fafa] flex items-center justify-center text-[var(--slate-400)] flex-shrink-0">
-                    {file.type === "JPG" || file.type === "PNG" || file.type === "JPEG" ? (
+                  <div className="w-10 h-10 rounded-lg bg-[#f8fafa] flex items-center justify-center text-[var(--slate-400)] flex-shrink-0 overflow-hidden">
+                    {file.url && !imageErrors[file.id] && ["JPG", "PNG", "JPEG", "GIF", "WEBP"].includes(file.type) ? (
+                      <img
+                        src={file.url}
+                        alt={file.name}
+                        className="w-full h-full object-cover"
+                        onError={() => setImageErrors((prev) => ({ ...prev, [file.id]: true }))}
+                      />
+                    ) : file.type === "JPG" || file.type === "PNG" || file.type === "JPEG" ? (
                       <ImageIcon className="w-5 h-5 text-[var(--slate-400)]" />
                     ) : (
                       <FileText className="w-5 h-5 text-[var(--slate-400)]" />
                     )}
                   </div>
-                  <div className="flex flex-col text-left min-w-0">
+                  <div className="flex flex-col text-right min-w-0">
                     <span className="font-bold text-sm text-[var(--deep-teal-900)] block truncate max-w-[140px] md:max-w-[200px]" title={file.name}>
                       {file.name}
                     </span>

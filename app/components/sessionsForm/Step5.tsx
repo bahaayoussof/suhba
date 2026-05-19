@@ -1,5 +1,12 @@
 import React from "react";
-import { Calendar, Clock, MapPin, Image as ImageIcon, FileText, Check } from "lucide-react";
+import {
+  Calendar,
+  Clock,
+  MapPin,
+  Image as ImageIcon,
+  FileText,
+  Check,
+} from "lucide-react";
 import { useAppStore } from "../../store/useAppStore";
 import { useWorldsQuery } from "../../hooks/useQueries";
 import { toArabicNums } from "~/lib/utils";
@@ -34,6 +41,9 @@ export default function Step5Summary() {
   const formData = useAppStore((state) => state.wizardData);
   const setWizardStep = useAppStore((state) => state.setWizardStep);
   const { data: worlds } = useWorldsQuery();
+  const [imageErrors, setImageErrors] = React.useState<Record<string, boolean>>(
+    {},
+  );
 
   const selectedWorld =
     worlds?.find((w: any) => w.id === formData.environmentId) || worlds?.[0];
@@ -161,22 +171,33 @@ export default function Step5Summary() {
             لم يتم تحميل أي ملفات.
           </p>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3" dir="ltr">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {formData.files.map((file) => (
               <div
                 key={file.id}
                 className="bg-[#f8fafa] border border-[#eef2f2] rounded-xl p-3 flex items-center gap-3"
               >
-                <div className="w-10 h-10 rounded-lg bg-[#eef2f2] flex items-center justify-center text-[var(--slate-400)] flex-shrink-0">
-                  {file.type === "JPG" ||
-                  file.type === "PNG" ||
-                  file.type === "JPEG" ? (
+                <div className="w-10 h-10 rounded-lg bg-[#eef2f2] flex items-center justify-center text-[var(--slate-400)] flex-shrink-0 overflow-hidden">
+                  {file.url &&
+                  !imageErrors[file.id] &&
+                  ["JPG", "PNG", "JPEG", "GIF", "WEBP"].includes(file.type) ? (
+                    <img
+                      src={file.url}
+                      alt={file.name}
+                      className="w-full h-full object-cover"
+                      onError={() =>
+                        setImageErrors((prev) => ({ ...prev, [file.id]: true }))
+                      }
+                    />
+                  ) : file.type === "JPG" ||
+                    file.type === "PNG" ||
+                    file.type === "JPEG" ? (
                     <ImageIcon className="w-5 h-5 text-[var(--deep-teal-900)]" />
                   ) : (
                     <FileText className="w-5 h-5 text-[var(--deep-teal-900)]" />
                   )}
                 </div>
-                <div className="flex flex-col text-left min-w-0">
+                <div className="flex flex-col text-right min-w-0">
                   <span
                     className="font-bold text-sm text-[var(--deep-teal-900)] truncate max-w-[150px]"
                     title={file.name}
@@ -194,7 +215,10 @@ export default function Step5Summary() {
       </SummaryCard>
 
       {/* Settings Card (Step 4 Summary) */}
-      <SummaryCard title="إعدادات وقواعد المجلس" onEdit={() => setWizardStep(4)}>
+      <SummaryCard
+        title="إعدادات وقواعد المجلس"
+        onEdit={() => setWizardStep(4)}
+      >
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {/* Visitors Limit */}
           <div className="flex flex-col gap-1.5 text-right">

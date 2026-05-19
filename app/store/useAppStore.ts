@@ -17,7 +17,7 @@ interface WizardData {
   date: string;
   time: string;
   rulesAccepted: boolean;
-  environmentId: number;
+  environmentId: number | null;
   files: UploadedFile[];
   visitorsLimit: number;
   raiseHand: boolean;
@@ -45,13 +45,13 @@ const defaultWizardData: WizardData = {
   date: "",
   time: "",
   rulesAccepted: false,
-  environmentId: 1,
+  environmentId: null,
   files: [],
   visitorsLimit: 25,
   raiseHand: true,
-  muteOnEntry: false,
+  muteOnEntry: true,
   allowChat: true,
-  isPrivate: false,
+  isPrivate: true,
 };
 
 export const useAppStore = create<AppState>()(
@@ -64,7 +64,21 @@ export const useAppStore = create<AppState>()(
         set((state) => ({
           wizardData: { ...state.wizardData, [field]: value },
         })),
-      resetWizard: () => set({ wizardStep: 1, wizardData: defaultWizardData }),
+      resetWizard: () =>
+        set((state) => {
+          if (typeof window !== "undefined") {
+            state.wizardData.files.forEach((file) => {
+              if (file.url && file.url.startsWith("blob:")) {
+                try {
+                  URL.revokeObjectURL(file.url);
+                } catch (e) {
+                  console.warn("Failed to revoke URL:", e);
+                }
+              }
+            });
+          }
+          return { wizardStep: 1, wizardData: defaultWizardData };
+        }),
 
       activeSessionTab: "all",
       setActiveSessionTab: (tab) => set({ activeSessionTab: tab }),
