@@ -11,16 +11,17 @@ import WorldCard from "../../components/WorldCard";
 export default function DashboardWorlds() {
   const { data: worlds, isLoading, isError } = useWorldsQuery();
   const [currentPage, setCurrentPage] = useState(1);
-  const [windowWidth, setWindowWidth] = useState(() => typeof window !== "undefined" ? window.innerWidth : 1280);
+  const [windowWidth, setWindowWidth] = useState<number | null>(null);
 
   useEffect(() => {
-    if (typeof window === "undefined") return;
+    setWindowWidth(window.innerWidth);
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const getItemsPerPage = () => {
+    if (windowWidth === null) return 12; // Default fallback for SSR & initial client render
     if (windowWidth < 1024) return 6; // sm to md
     if (windowWidth < 1280) return 9; // lg
     return 12; // xl and up
