@@ -7,28 +7,13 @@ import EmptyState from "../../../components/EmptyState";
 import { cn } from "../../../lib/utils";
 import { useSessionsQuery } from "../../../hooks/useQueries";
 import { useAppStore } from "../../../store/useAppStore";
+import { useItemsPerPage } from "../../../hooks/useItemsPerPage";
 
 export default function DashboardSessions() {
   const activeTab = useAppStore((state) => state.activeSessionTab);
   const setActiveTab = useAppStore((state) => state.setActiveSessionTab);
   const [currentPage, setCurrentPage] = useState(1);
-  const [windowWidth, setWindowWidth] = useState<number | null>(null);
-
-  useEffect(() => {
-    setWindowWidth(window.innerWidth);
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const getItemsPerPage = () => {
-    if (windowWidth === null) return 8; // Default fallback for SSR & initial client render
-    if (windowWidth < 1024) return 3; // sm to md
-    if (windowWidth < 1280) return 6; // lg
-    return 8; // xl and up
-  };
-
-  const itemsPerPage = getItemsPerPage();
+  const itemsPerPage = useItemsPerPage({ default: 8, sm: 3, lg: 6 });
 
   const { data: sessions, isLoading, isError } = useSessionsQuery();
 

@@ -4,6 +4,7 @@ import Pagination from "../../components/Pagination";
 import { cn } from "../../lib/utils";
 import type { WorldCardProps } from "../../../types";
 import { useWorldsQuery } from "../../hooks/useQueries";
+import { useItemsPerPage } from "../../hooks/useItemsPerPage";
 
 import EmptyState from "../../components/EmptyState";
 import WorldCard from "../../components/WorldCard";
@@ -11,23 +12,7 @@ import WorldCard from "../../components/WorldCard";
 export default function DashboardWorlds() {
   const { data: worlds, isLoading, isError } = useWorldsQuery();
   const [currentPage, setCurrentPage] = useState(1);
-  const [windowWidth, setWindowWidth] = useState<number | null>(null);
-
-  useEffect(() => {
-    setWindowWidth(window.innerWidth);
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  const getItemsPerPage = () => {
-    if (windowWidth === null) return 12; // Default fallback for SSR & initial client render
-    if (windowWidth < 1024) return 6; // sm to md
-    if (windowWidth < 1280) return 9; // lg
-    return 12; // xl and up
-  };
-
-  const itemsPerPage = getItemsPerPage();
+  const itemsPerPage = useItemsPerPage({ default: 12, sm: 6, lg: 9 });
 
   const paginatedWorlds = worlds
     ? worlds.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage)
